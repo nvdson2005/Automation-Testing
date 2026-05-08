@@ -1,0 +1,15 @@
+key,value
+base_url,https://school.moodledemo.net
+forum_url,https://school.moodledemo.net/mod/forum/view.php?id=706
+username_value,student
+password_value,moodle26
+login_link_text,Log in
+username_field_id,username
+password_field_id,password
+login_form_id,login
+add_discussion_link_text,Add discussion topic
+subject_field_id,id_subject
+submit_button_id,id_submitbutton
+error_subject_id,id_error_subject
+error_message_id,id_error_message
+success_text,Your post was successfully added.
