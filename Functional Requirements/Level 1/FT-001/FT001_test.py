@@ -120,9 +120,7 @@ class FT001Test(unittest.TestCase):
                         driver.find_element(By.ID, "id_submitbutton").click()
                         time.sleep(3)  # Buffer to allow submission to process and page to update
                         try:
-                            print("Verifying submission...")
                             self.assertIn(row['expected'], driver.find_element(By.TAG_NAME, "body").text)
-                            print(f"Test {row['test_id']} passed.")
                         except AssertionError as e:
                             verification_errors.append(str(e))
                         self.assertEqual([], verification_errors)

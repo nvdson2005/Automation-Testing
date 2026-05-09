@@ -122,7 +122,6 @@ class FT001Test(unittest.TestCase):
                         time.sleep(3)
                         try:
                             self.assertIn(row["expected"], driver.find_element(By.TAG_NAME, "body").text)
-                            print(f"Test {row['test_id']} passed.")
                         except AssertionError as e:
                             verification_errors.append(str(e))
                         self.assertEqual([], verification_errors)
