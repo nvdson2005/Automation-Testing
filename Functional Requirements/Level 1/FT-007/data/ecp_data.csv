@@ -1,0 +1,6 @@
+test_id,input_value,expected_result
+FT-007-008,3.14,Answer saved
+FT-007-009,-3.4,Answer saved
+FT-007-010,abc,You must enter a valid number.
+FT-007-011,@#!$,You must enter a valid number.
+FT-007-012,,Not yet answered
