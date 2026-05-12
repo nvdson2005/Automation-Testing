@@ -126,8 +126,6 @@ class FT002Test(unittest.TestCase):
             alert.accept()
             return alert_text
         finally:
-            pass
-
     # ── test ───────────────────────────────────────────────────────────────
 
     def test_add_forum_post(self):
