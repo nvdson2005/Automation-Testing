@@ -1,7 +1,7 @@
 import csv
 import time
 import unittest
-
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -14,9 +14,10 @@ COURSE_URL = "https://school.moodledemo.net/course/view.php?id=71"
 QUIZ_NAME = "AAA"
 USERNAME = "student"
 PASSWORD = "moodle26"
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "data" / "ecp_data.csv"
 
-
-def load_test_data(file_path="data/ecp_data.csv"):
+def load_test_data(file_path=DATA_FILE):
     with open(file_path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
@@ -99,13 +100,26 @@ class QuizNumericalECP(unittest.TestCase):
         wait = self.wait
 
         driver.get(COURSE_URL)
+
+        wait.until(
+            lambda d: d.execute_script("return document.readyState") == "complete"
+        )
+
         time.sleep(2)
 
-        quiz_link = wait.until(
-            EC.presence_of_element_located((By.LINK_TEXT, QUIZ_NAME))
+        quiz_links = wait.until(
+            EC.presence_of_all_elements_located(
+                (
+                    By.XPATH,
+                    "//a[contains(@href,'/mod/quiz/view.php') and normalize-space()='AAA']"
+                )
+            )
         )
-        self.click_js(quiz_link)
 
+        quiz_link = quiz_links[-1]
+        print("Selected quiz:", quiz_link.get_attribute("href"))
+
+        self.click_js(quiz_link)
         time.sleep(2)
 
         attempt_btn = wait.until(
@@ -115,7 +129,6 @@ class QuizNumericalECP(unittest.TestCase):
         )
         self.click_js(attempt_btn)
 
-        # Có lúc Moodle hiện nút Start attempt / id_submitbutton
         try:
             start_btn = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.ID, "id_submitbutton"))
@@ -324,7 +337,7 @@ def make_test(row):
     return test
 
 
-test_data = load_test_data("data/ecp_data.csv")
+test_data = load_test_data(DATA_FILE)
 
 for row in test_data:
     test_name = f"test_{row['test_id'].replace('-', '_')}"

@@ -1,0 +1,4 @@
+test_id,rule,answer_state,answers_to_fill,expected_summary,expected_final
+FT-007-013,R1,all,10,answer saved,finished
+FT-007-014,R2,partial,3,not answered,finished
+FT-007-015,R3,none,0,not answered,finished

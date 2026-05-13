@@ -1,7 +1,7 @@
 import csv
 import time
 import unittest
-
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -17,8 +17,9 @@ BY_MAP = {
     "link": By.LINK_TEXT,
 }
 
-
-def load_test_data(file_path="data/ecp_l2_data.csv"):
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "data" / "ecp_l2_data.csv"
+def load_test_data(file_path=DATA_FILE):
     with open(file_path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
@@ -43,53 +44,65 @@ class QuizNumericalECPLevel2(unittest.TestCase):
 
     def login(self, login_url, username, password):
         driver = self.driver
-        wait = self.wait
+
+        # Nếu đang login sẵn thì không login lại
+        if self.is_logged_in():
+            print(f"Already logged in -> skip login: {username}")
+            return
 
         for attempt in range(3):
             try:
                 driver.get(login_url)
 
-                wait.until(
+                WebDriverWait(driver, 10).until(
                     lambda d: d.execute_script("return document.readyState") == "complete"
                 )
 
-                username_box = wait.until(
-                    EC.presence_of_element_located((By.ID, "username"))
-                )
-                password_box = wait.until(
-                    EC.presence_of_element_located((By.ID, "password"))
+                # Nếu Moodle redirect vì đã login thì skip
+                if self.is_logged_in():
+                    print(f"Already logged in after opening login page -> skip login: {username}")
+                    return
+
+                WebDriverWait(driver, 10).until(
+                    lambda d: d.execute_script(
+                        "return !!document.getElementById('username') "
+                        "&& !!document.getElementById('password') "
+                        "&& !!document.getElementById('loginbtn');"
+                    )
                 )
 
                 driver.execute_script(
                     """
-                    arguments[0].value = arguments[2];
-                    arguments[1].value = arguments[3];
+                    const usernameBox = document.getElementById('username');
+                    const passwordBox = document.getElementById('password');
+                    const loginBtn = document.getElementById('loginbtn');
 
-                    arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
-                    arguments[1].dispatchEvent(new Event('input', { bubbles: true }));
-                    arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
-                    arguments[1].dispatchEvent(new Event('change', { bubbles: true }));
+                    usernameBox.value = arguments[0];
+                    passwordBox.value = arguments[1];
+
+                    usernameBox.dispatchEvent(new Event('input', { bubbles: true }));
+                    passwordBox.dispatchEvent(new Event('input', { bubbles: true }));
+                    usernameBox.dispatchEvent(new Event('change', { bubbles: true }));
+                    passwordBox.dispatchEvent(new Event('change', { bubbles: true }));
+
+                    loginBtn.click();
                     """,
-                    username_box,
-                    password_box,
                     username,
                     password,
                 )
 
-                login_btn = wait.until(
-                    EC.presence_of_element_located((By.ID, "loginbtn"))
+                WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.ID, "user-menu-toggle"))
                 )
-                self.click_js(login_btn)
 
-                time.sleep(2)
-                print("Login student OK")
+                print(f"Login student OK: {username}")
                 return
 
             except Exception as e:
                 print(f"Login retry {attempt + 1}/3: {type(e).__name__}")
-                time.sleep(1)
+                time.sleep(0.5)
 
-        raise Exception("Student login failed after 3 retries")
+        raise Exception(f"Student login failed after 3 retries: {username}")
 
     def logout_if_needed(self, user_menu_id, logout_link_text):
         try:
@@ -109,6 +122,12 @@ class QuizNumericalECPLevel2(unittest.TestCase):
 
     def get_page_text(self):
         return self.driver.page_source.lower()
+    
+    def is_logged_in(self):
+        try:
+            return len(self.driver.find_elements(By.ID, "user-menu-toggle")) > 0
+        except Exception:
+            return False
 
     def start_attempt(self, row):
         driver = self.driver
@@ -119,29 +138,76 @@ class QuizNumericalECPLevel2(unittest.TestCase):
         attempt_button_xpath = row["attempt_button_xpath"]
         start_button_id = row["start_button_id"]
 
-        driver.get(course_url)
+        def open_course_and_click_quiz():
+            driver.get(course_url)
 
-        wait.until(
-            lambda d: d.execute_script("return document.readyState") == "complete"
-        )
+            wait.until(
+                lambda d: d.execute_script("return document.readyState") == "complete"
+            )
 
-        time.sleep(2)
+            time.sleep(2)
 
-        # Tìm quiz AAA theo link Moodle quiz.
-        # Nếu có nhiều quiz AAA thì lấy cái cuối cùng, thường là quiz mới tạo gần nhất.
-        quiz_links = wait.until(
-            EC.presence_of_all_elements_located(
-                (
-                    By.XPATH,
-                    f"//a[contains(@href,'/mod/quiz/view.php') and normalize-space()='{quiz_name}']"
+            # Nếu bị rớt session hoặc mở như guest
+            page_text = driver.page_source.lower()
+            if (
+                "sorry, guests cannot see or attempt quizzes" in page_text
+                or "log in now with a full user account" in page_text
+                or "you are currently using guest access" in page_text
+            ):
+                return False
+
+            quiz_links = wait.until(
+                EC.presence_of_all_elements_located(
+                    (
+                        By.XPATH,
+                        f"//a[contains(@href,'/mod/quiz/view.php') and normalize-space()='{quiz_name}']"
+                    )
                 )
             )
-        )
 
-        quiz_link = quiz_links[-1]
+            quiz_link = quiz_links[-1]
+            print("Selected quiz:", quiz_link.get_attribute("href"))
 
-        self.click_js(quiz_link)
-        time.sleep(2)
+            self.click_js(quiz_link)
+            time.sleep(2)
+
+            return True
+
+        ok = open_course_and_click_quiz()
+
+        if not ok:
+            print("    Session lost / opened as guest -> login again")
+
+            if len(self.driver.find_elements(By.ID, "user-menu-toggle")) == 0:
+                self.login(
+                    row["login_url"],
+                    row["username"],
+                    row["password"]
+    )
+
+            ok = open_course_and_click_quiz()
+
+            if not ok:
+                raise Exception("Still opened as guest after re-login")
+
+        # Sau khi click quiz, kiểm tra lại nếu quiz page báo guest
+        page_text = driver.page_source.lower()
+        if (
+            "sorry, guests cannot see or attempt quizzes" in page_text
+            or "log in now with a full user account" in page_text
+        ):
+            print("    Quiz opened as guest -> login again")
+
+            self.login(
+                row["login_url"],
+                row["username"],
+                row["password"]
+            )
+
+            ok = open_course_and_click_quiz()
+
+            if not ok:
+                raise Exception("Cannot open quiz after re-login")
 
         attempt_btn = wait.until(
             EC.presence_of_element_located((By.XPATH, attempt_button_xpath))
@@ -340,11 +406,6 @@ class QuizNumericalECPLevel2(unittest.TestCase):
 
         self.submit_from_summary(row)
 
-        self.logout_if_needed(
-            row["user_menu_id"],
-            row["logout_link_text"]
-        )
-
     @classmethod
     def tearDownClass(cls):
         time.sleep(1)
@@ -361,7 +422,7 @@ def make_test(row):
     return test
 
 
-test_data = load_test_data("data/ecp_l2_data.csv")
+test_data = load_test_data(DATA_FILE)
 
 for row in test_data:
     test_name = f"test_{row['test_id'].replace('-', '_')}"

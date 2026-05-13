@@ -1,7 +1,7 @@
 import csv
 import time
 import unittest
-
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -16,8 +16,9 @@ from preBVA import (
     TEACHER_PASS,
 )
 
-
-def load_bva_data(file_path="data/bva_data.csv"):
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "data" / "bva_data.csv"
+def load_bva_data(file_path=DATA_FILE):
     with open(file_path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
@@ -110,7 +111,7 @@ def make_test(row):
     return test
 
 
-test_data = load_bva_data("data/bva_data.csv")
+test_data = load_bva_data(DATA_FILE)
 
 for row in test_data:
     test_name = f"test_{row['test_id'].replace('-', '_')}"

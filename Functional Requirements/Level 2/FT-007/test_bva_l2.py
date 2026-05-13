@@ -1,15 +1,16 @@
 import csv
 import time
 import unittest
-
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-
-def load_test_data(file_path="data/bva_l2_data.csv"):
+BASE_DIR = Path(__file__).resolve().parent
+DATA_FILE = BASE_DIR / "data" / "bva_l2_data.csv"
+def load_test_data(file_path=DATA_FILE):
     with open(file_path, newline="", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
@@ -413,7 +414,7 @@ def make_test(row):
     return test
 
 
-test_data = load_test_data("data/bva_l2_data.csv")
+test_data = load_test_data(DATA_FILE)
 
 for row in test_data:
     test_name = f"test_{row['test_id'].replace('-', '_')}"
