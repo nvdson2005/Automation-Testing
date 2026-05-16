@@ -135,7 +135,10 @@ class NonFunctionalPerformanceTest(unittest.TestCase):
             driver.find_element(By.ID, "id_email").send_keys(unique_email)
 
             t_start = time.perf_counter()
-            driver.find_element(By.ID, "id_submitbutton").click()
+            submit_btn = driver.find_element(By.ID, "id_submitbutton")
+            driver.execute_script("arguments[0].scrollIntoView(true);", submit_btn)
+            time.sleep(0.2)
+            driver.execute_script("arguments[0].click();", submit_btn)
 
             wait.until(EC.presence_of_element_located((
                 By.XPATH,
@@ -197,7 +200,10 @@ class NonFunctionalPerformanceTest(unittest.TestCase):
                     pass
 
             t_start = time.perf_counter()
-            driver.find_element(By.ID, "id_saveanddisplay").click()
+            save_btn = driver.find_element(By.ID, "id_saveanddisplay")
+            driver.execute_script("arguments[0].scrollIntoView(true);", save_btn)
+            time.sleep(0.2)
+            driver.execute_script("arguments[0].click();", save_btn)
 
             wait.until(EC.presence_of_element_located((
                 By.XPATH,
