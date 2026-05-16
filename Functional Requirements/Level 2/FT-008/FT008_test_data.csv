@@ -1,0 +1,11 @@
+﻿TestCaseID,username,admin_password,firstname,lastname,email,new_password,Expected_Result,Assert_Element
+FT-008-001,alicehill,moodle26,Alice,Hill,alicehill322@example.com,,"This username already exists, choose another",id=id_error_username
+FT-008-002,hoa,moodle26,ky,hoa,NguyenVanagmail.com,123,Invalid email address,id=id_error_email
+FT-008-003,a,moodle26,b,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,ab@gmail.com,123,Changes saved,xpath=//span[@id='user-notifications']/div
+FT-008-004,nam,moodle26,namhoang,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,namhoang@gmail.com,123,Changes saved,xpath=//span[@id='user-notifications']/div
+FT-008-005,a,moodle26,a,,ab@gmail.com,123,Missing last name,id=id_error_lastname
+FT-008-006,hoainam,moodle26,hoai,n,hoainam@gmail.com,123,Changes saved,xpath=//span[@id='user-notifications']/div
+FT-008-007,ab,moodle26,,b,ab@gmail.com,123,Missing given name,id=id_error_firstname
+FT-008-008,a,moodle26,a,b,,123,Required,id=id_error_email
+FT-008-009,nhavua,moodle26,nha,vua,nhavua@gmail.com,123,Changes saved,xpath=//span[@id='user-notifications']/div
+FT-008-010,dainam,moodle26,dai,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,dainam@gmail.com,123,Changes saved,xpath=//span[@id='user-notifications']/div

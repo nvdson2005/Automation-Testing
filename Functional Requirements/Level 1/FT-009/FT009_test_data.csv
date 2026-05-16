@@ -1,0 +1,11 @@
+﻿TestCaseID,fullname,shortname,category,end_day,end_month,Expected_Result,Assert_Element
+FT-009-001,diachat,dia,Faculty of Education / LMS Resources,19,April,The course end date must be after the start date.,id=id_error_enddate
+FT-009-002,khoahocmaytinh,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,Faculty of Education / LMS Resources,,,khoahocmaytinh,xpath=//header[@id='page-header']/div/div[2]/div/div/div/div/h1
+FT-009-003,computerscience,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,Faculty of Education / LMS Resources,,,computerscience,xpath=//header[@id='page-header']/div/div[2]/div/div/div/div/h1
+FT-009-004,engine,,Faculty of Education / LMS Resources,,,Missing short name,id=id_error_shortname
+FT-009-005,covua,c,Faculty of Education / LMS Resources,,,covua,xpath=//header[@id='page-header']/div/div[2]/div/div/div/div/h1
+FT-009-006,,m,Faculty of Education / LMS Resources,,,Missing full name,id=id_error_fullname
+FT-009-007,math,ma,,,,You must supply a value here.,id=id_error_category
+FT-009-008,Digital Literacy,Digital Literacy,Faculty of Education / LMS Resources,,,Short name is already used for another course (Digital Literacy ),id=id_error_shortname
+FT-009-009,math,math,Faculty of Education / LMS Resources,,,math,xpath=//header[@id='page-header']/div/div[2]/div/div/div/div/h1
+FT-009-010,xaydung,1.23E+253,Faculty of Arts and Humanities / Communication and Media,,,xaydung,xpath=//header[@id='page-header']/div/div[2]/div/div/div/div/h1

@@ -1,0 +1,13 @@
+key,value
+site_url,https://school.moodledemo.net/
+add_user_url,https://school.moodledemo.net/user/editadvanced.php?id=-1
+admin_password,moodle26
+loc_login_link,css=span.login a
+loc_password_field,id=password
+loc_login_form,id=login
+loc_username_field,id=id_username
+loc_firstname_field,id=id_firstname
+loc_lastname_field,id=id_lastname
+loc_email_field,id=id_email
+loc_newpassword_field,id=id_newpassword
+loc_submit_button,id=id_submitbutton
