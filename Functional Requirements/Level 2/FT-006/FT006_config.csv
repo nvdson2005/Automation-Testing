@@ -1,0 +1,17 @@
+key,value
+base_url,https://school.moodledemo.net
+profile_url,https://school.moodledemo.net/user/edit.php?id=self
+login_link_text,Log in
+username_field_id,username
+password_field_id,password
+login_form_id,login
+implicit_wait,30
+wait_timeout,15
+first_name_field_id,id_firstname
+description_field_id,id_picture
+file_input_xpath,//input[@type='file' and @name='userfile']
+picture_section_selector,[data-fieldname="picture"]
+error_message_xpath,//div[@class='alert alert-danger']
+success_message_xpath,//div[@role='alert' and contains(@class, 'alert-success')]
+delete_picture_checkbox_id,id_picture_delete
+submit_button_id,id_submitbutton

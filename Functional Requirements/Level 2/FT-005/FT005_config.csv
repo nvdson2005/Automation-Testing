@@ -1,0 +1,17 @@
+key,value
+base_url,https://school.moodledemo.net
+courses_url,https://school.moodledemo.net/my/courses.php
+course_url_template,https://school.moodledemo.net/course/view.php?id=
+login_link_text,Log in
+username_field_id,username
+password_field_id,password
+login_form_id,login
+student_username,student
+student_password,moodle26
+implicit_wait,30
+wait_timeout,15
+page_load_wait,2
+completion_status_xpath,//div[contains(@class, 'completion-header')]//span[contains(text(), 'Completed')]
+completion_text_completed,Completed
+completion_text_not_completed,Not Completed
+completion_text_no_status,No Status

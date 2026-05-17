@@ -1,0 +1,15 @@
+test_id,username,password,file_path,description,action,expected,note
+TC-006-001,student,moodle26,test_256MB.jpg,,none,success,BVA: Upload image at 256MB limit
+TC-006-002,student,moodle26,test_500MB.jpg,,none,error,BVA: Upload image >256MB - should fail
+TC-006-003,student,moodle26,,,none,success,No upload - valid profile update
+TC-006-004,student,moodle26,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,none,success,BVA: Description exactly 100 characters
+TC-006-005,student,moodle26,,aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,none,error,BVA: Description >100 chars
+TC-006-006,student,moodle26,valid_image.jpg,,none,success,ECP: Valid format .jpg
+TC-006-007,student,moodle26,invalid_file.pdf,,none,error,ECP: Invalid format .pdf
+TC-006-008,student,moodle26,invalid_file.exe,,none,error,ECP: Invalid format .exe
+TC-006-009,student,moodle26,,empty_description,none,success,BVA: Empty description
+TC-006-010,student,moodle26,valid_image.jpg,,delete_picture,success,Use case: Delete and replace with new picture
+TC-006-011,student,moodle26,valid_image.jpg,Test Description,none,success,Use case: Upload with description
+TC-006-012,manager,moodle26,manager_picture.jpg,,none,success,Role-based: Manager updating picture
+TC-006-013,student,moodle26,,none,none,success,Use case: No changes made
+TC-006-014,student,moodle26,another_image.png,,none,success,ECP: Valid format .png

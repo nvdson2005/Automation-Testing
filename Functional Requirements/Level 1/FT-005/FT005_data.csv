@@ -1,0 +1,8 @@
+test_id,course_id,expected,note
+TC-005-001,6,Completed,All conditions satisfied - User completes activity + achieves grade + participates
+TC-005-002,6,Not Completed,Activity not completed - Missing required activity completion
+TC-005-003,6,Not Completed,Grade not achieved - Did not reach minimum grade requirement
+TC-005-004,6,Not Completed,None of conditions met - Failed all three requirements
+TC-005-005,6,Not Completed,Activity and participation not completed - Missing 2 of 3 conditions
+TC-005-006,6,Not Completed,Grade and participation not completed - Missing grade and participation
+TC-005-007,6,Not Completed,Activity and grade not completed - Missing activity and grade
