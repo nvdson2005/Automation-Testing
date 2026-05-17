@@ -1,0 +1,9 @@
+test_id,query,grouping,expected_type,expected_text,min_visible,check_clear
+FT-004-001,Digital,All,contains,Digital Literacy,0,1
+FT-004-002,ZZZ_NO_MATCH,All,no_courses,No courses,0,1
+FT-004-003,moodle,All,contains,Moodle Mountain (LMS training 01),0,0
+FT-004-004,@@@###,All,no_courses,No courses,0,1
+FT-004-005,Digital,All,contains,Digital Literacy,0,1
+FT-004-006,Digital,All,contains,Digital Literacy,0,1
+FT-004-007,,All,baseline_unchanged,,0,0
+FT-004-008,Digital|Digital,All|In progress,contains_each,Digital Literacy|Digital Literacy,0,0

@@ -1,0 +1,15 @@
+item_name,selector_type,selector_value,notes
+username,value,student,Tài khoản student theo FT004Preparation
+password,value,moodle26,Mật khẩu student theo FT004Preparation
+url_login,url,https://school.moodledemo.net/login/index.php,URL đăng nhập
+url_courses,url,https://school.moodledemo.net/my/courses.php,URL trang khoá học
+field_username,id,username,Ô username
+field_login_pw,id,password,Ô password
+btn_login,id,loginbtn,Nút đăng nhập
+field_search,css,input[data-action='search'],Ô tìm kiếm khoá học (Dùng data-action cho ổn định)
+btn_grouping,id,groupingdropdown,Nút chọn phân loại (All, In progress...)
+group_option,xpath_template,//a[normalize-space()='{group}'],Option trong menu grouping
+item_course_name,css,.coursename,Class tên khoá học
+visible_course_cards_js,script,"return Array.from(document.querySelectorAll('div.col.d-flex')).filter(el => el.offsetParent !== null).length;",JS đếm course card visible theo Katalon
+no_courses_text,value,No courses,Text khi không có khoá học
+container_body,tag,body,Vùng thân trang để check text "No courses"

@@ -1,0 +1,96 @@
+{
+  "username_input": {
+    "by": "id",
+    "value": "username",
+    "description": "Login username textbox"
+  },
+  "login_password_input": [
+    {
+      "by": "id",
+      "value": "password",
+      "description": "Primary login password textbox"
+    },
+    {
+      "by": "id",
+      "value": "passwordinput",
+      "description": "Fallback login password textbox"
+    }
+  ],
+  "login_button": [
+    {
+      "by": "id",
+      "value": "loginbtn",
+      "description": "Primary login button"
+    },
+    {
+      "by": "id",
+      "value": "login",
+      "description": "Fallback login form"
+    }
+  ],
+  "continue_controls": {
+    "by": "xpath",
+    "value": "//button[normalize-space()='Continue'] | //a[normalize-space()='Continue']",
+    "description": "Moodle Continue buttons or links after messages"
+  },
+  "user_menu_toggle": {
+    "by": "id",
+    "value": "user-menu-toggle",
+    "description": "Logged-in user menu"
+  },
+  "my_courses_body": {
+    "by": "css",
+    "value": "body.pagelayout-mycourses",
+    "description": "My courses page body indicator"
+  },
+  "login_error_message": {
+    "by": "id",
+    "value": "loginerrormessage",
+    "description": "Login failure message"
+  },
+  "current_password_input": {
+    "by": "id",
+    "value": "id_password",
+    "description": "Current password textbox"
+  },
+  "new_password1_input": {
+    "by": "id",
+    "value": "id_newpassword1",
+    "description": "New password textbox"
+  },
+  "new_password2_input": {
+    "by": "id",
+    "value": "id_newpassword2",
+    "description": "Confirm new password textbox"
+  },
+  "submit_button": {
+    "by": "id",
+    "value": "id_submitbutton",
+    "description": "Save changes button"
+  },
+  "cancel_button": {
+    "by": "id",
+    "value": "id_cancel",
+    "description": "Cancel change-password button"
+  },
+  "success_notice": {
+    "by": "id",
+    "value": "notice",
+    "description": "Password changed success notice"
+  },
+  "current_password_error": {
+    "by": "id",
+    "value": "id_error_password",
+    "description": "Current password validation error"
+  },
+  "new_password1_error": {
+    "by": "id",
+    "value": "id_error_newpassword1",
+    "description": "New password validation error"
+  },
+  "new_password2_error": {
+    "by": "id",
+    "value": "id_error_newpassword2",
+    "description": "Confirm new password validation error"
+  }
+}

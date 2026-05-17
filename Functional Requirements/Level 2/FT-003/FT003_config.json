@@ -1,0 +1,36 @@
+{
+  "credentials": {
+    "username": "williamkim",
+    "baseline_password_env": "FT003_BASELINE_PASSWORD",
+    "baseline_password_default": "moodle"
+  },
+  "urls": {
+    "login": "https://school.moodledemo.net/login/index.php",
+    "change_password": "https://school.moodledemo.net/login/change_password.php?id=1",
+    "login_failure_fragment": "/login/"
+  },
+  "assertions": {
+    "password_changed_text": "Password has been changed"
+  },
+  "timeouts": {
+    "default": 10,
+    "locator": 5,
+    "login": 8
+  },
+  "field_bindings": {
+    "current_password": "current_password_input",
+    "new_password1": "new_password1_input",
+    "new_password2": "new_password2_input"
+  },
+  "action_targets": {
+    "submit": "submit_button",
+    "cancel": "cancel_button"
+  },
+  "login_success_indicators": [
+    "user_menu_toggle",
+    "my_courses_body"
+  ],
+  "login_error_indicators": [
+    "login_error_message"
+  ]
+}
